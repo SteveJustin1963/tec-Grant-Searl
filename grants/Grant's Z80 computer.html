@@ -1,0 +1,550 @@
+
+<!-- saved from url=(0064)http://searle.hostei.com/grant/z80/SimpleZ80.html#CircuitDiagram -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="en-gb">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+
+<title>Grant's Z80 computer</title>
+<script charset="utf-8" src="./Grant&#39;s Z80 computer_files/button.dd024c345fc26f7c7a8d9938b67e5d3d.js.download"></script><link id="avast_os_ext_custom_font" href="chrome-extension://mbckjcfnjmoiinpgddefodcighgikkgn/common/ui/fonts/fonts.css" rel="stylesheet" type="text/css"></head>
+
+<body>
+
+<p><img border="0" src="./Grant&#39;s Z80 computer_files/z80chip.jpg" width="600" height="178"></p>
+
+<p>&nbsp;</p>
+<p><b><font face="Arial" size="7">Grant's 7-chip Z80 computer<br>
+</font><i><font face="Arial" size="4">(only 6 chips if using a USB to TTL 
+serial cable)</font></i></b></p>
+<p><b><font face="Arial" size="4">- a fully operational Z80 computer running BASIC 
+can't get simpler than this!</font></b></p>
+
+<p><img border="0" src="./Grant&#39;s Z80 computer_files/Verified.jpg" width="250" height="56"></p>
+
+<p><font face="Arial">by Grant Searle</font></p>
+<font face="Arial"><font color="#0000FF">For news and updates, follow me on 
+Twitter:</font><br>
+</font>
+<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-follow-button twitter-follow-button-rendered" style="position: static; visibility: visible; width: 79px; height: 28px;" title="Twitter Follow Button" src="./Grant&#39;s Z80 computer_files/follow_button.2e9f365dae390394eb8d923cba8c5b11.en.html" data-screen-name="zx80nut"></iframe>
+<script id="twitter-wjs" src="./Grant&#39;s Z80 computer_files/widgets.js.download"></script><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<p><font face="Arial"><i>Last update: 12th October 201</i></font><i><font face="Arial">7</font></i></p>
+
+<p><i><font face="Arial"><a href="http://searle.hostei.com/grant/6809/Simple6809.html">[FOR A <b>6809</b> 
+VERSION OF THE MINIMAL COMPUTER, CLICK HERE]</a></font></i><br>
+<i><font face="Arial"><a href="http://searle.hostei.com/grant/6502/Simple6502.html">[FOR A <b>6502</b> 
+VERSION OF THE MINIMAL COMPUTER, CLICK HERE]</a></font></i></p>
+
+<p><b><i><font face="Arial">[<a href="http://searle.hostei.com/grant/Multicomp/index.html">FOR A VERSION ON 
+A LOW-COST FPGA BOARD CLICK HERE</a>]</font></i></b></p>
+
+<p><font face="Arial"><i><a href="http://searle.hostei.com/grant/cpm/index.html">[FOR A SLIGHTLY MORE 
+COMPLEX Z80 VERSION RUNNING CP/M, CLICK HERE]</a></i></font></p>
+
+<p><i><font color="#800000" size="4" face="Arial"><b>Please 
+note that you are NOT allowed to reproduce <u>any</u> of this page elsewhere on 
+the Web without my permission.</b></font></i></p><hr>
+<p><b><font face="Arial" size="5">Index</font></b></p>
+<p><font face="Arial"><a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#Specification">Specification</a><br>
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#Maps">Memory and I/O map</a><br>
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#CircuitDiagram">Circuit diagram</a><br>
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#CircuitDescription">Circuit description</a><br>
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#Prototype">Prototype</a><br>
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#RomFiles">ROM assembly and hex files</a><br>
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#RomBasic">ROM BASIC - what's included/excluded and new</a><br>
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#PoweringUp">Powering up</a><br>
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#LoadAndSave">Loading and saving</a><br>
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80.html#Interfacing">Interfacing</a></font></p>
+<hr>
+<p><b><font face="Arial" size="5"><a name="Specification"></a>Specification</font></b></p>
+<p><font face="Arial">8K ROM<br>
+56K RAM (A version with 32K RAM is <a href="http://searle.hostei.com/grant/z80/SimpleZ80_32K.html">HERE</a>)<br>
+Z80 Processor (overclocked - <u>all</u> processors 4MHz+ (Z80B) that I have 
+tried overclock to this with no issues) with a 7.3728MHz clock. You can halve this, ie. to 
+stop the overclocking, by changing the crystal to 3.6864MHz but the serial I/O 
+speed is then also 
+halved to 57600 baud.<br>
+115200 Baud serial interface, RS232 specification voltage levels. Full interrupt 
+driven input with buffer and hardware handshaking so no incoming data loss.<br>
+Power consumption - approx 200mA<br>
+Microsoft  BASIC, as used in the Nascom 2 computer modified for the SBC with all 
+I/O via serial. Commands not applicable for the SBC have been removed.<br>
+Minimal possible component count - 7 ICs and a small number of discrete 
+components.<br>
+Easily interfaced to a large number of connections by adding input ports or 
+output ports and a very small amount of logic.</font></p>
+<hr>
+<p><font face="Arial"><b><font size="5"><a name="Maps"></a>Memory Map</font></b></font></p>
+<p><font face="Arial">0000-1FFF&nbsp;&nbsp; 8K ROM<br>
+2000-FFFF&nbsp;&nbsp; RAM (56K) (32K RAM modifications
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80_32K.html">HERE</a>)</font></p>
+<p><b><font face="Arial" size="5">I/O Map</font></b></p>
+<p><font face="Arial">00-7F&nbsp;&nbsp; Free (128 input and 128 output ports)<br>
+80-81&nbsp;&nbsp; SERIAL INTERFACE (minimally decoded, actually covers locations 
+80 to BF)<br>
+C0-FF&nbsp; Free (64 input and 64 output ports) </font></p>
+<hr>
+<p><b><font face="Arial" size="5"><a name="CircuitDiagram"></a>Circuit diagram</font></b></p>
+<p><font face="Arial">(Note: Circuit and other details for the 32K RAM version 
+is <a href="http://searle.hostei.com/grant/z80/SimpleZ80_32K.html">HERE</a>)</font></p>
+<p><font face="Arial">The purpose of this computer is to create the simplest 
+possible machine with a high speed interface, good amount of RAM and also a good 
+implementation of BASIC.<br>
+The design that I produced is shown here, and is probably the simplest Z80 
+circuit that can be done to fulfil what I need. This can be used as the basis of 
+more complex machines.<br>
+The ACIA is very minimally decoded but still leaves an I/O address space of 192 
+free input ports and 192 free output ports (ie. 1536 input bits plus 1536 output 
+bits) available so would be more than adequate. If a more refined decoding is needed then it 
+is straightforward to add additional gates or a 74LS138 decoder. However, even 
+with this simple arrangement, there are many I/O addresses free for expansion.</font></p>
+<p><i><b><font face="Arial">Note: Chip selection - All of the standard Z80 and 
+6850 chips that I have worked perfectly at the speeds required for this circuit 
+even though the circuit requirement is faster than their specification. 
+Therefore, you are unlikely to have any issues. However, I would recommend you 
+buy the "B" speed grade ACIA ie. 68B50 and get the 6MHz or 8MHz version of the 
+Z80 processor.</font></b></i></p>
+<p><font face="Arial">Power supply pins and any (optional) decoupling capacitors are <u>not</u> shown and need to be 
+connected to the appropriate power rails.</font></p>
+<p><img border="0" src="./Grant&#39;s Z80 computer_files/Z80SbcSchematic1.3.gif" width="1000" height="720"></p>
+<p><font face="Arial"><b>Note:</b> /CTS is not used and is grounded on the 6850 
+as I didn't want this board to stop running (sending serial data) if the PC is 
+disconnected. PCs are also plenty fast enough to keep up with the serial output 
+from this board so handshaking isn't really required. However, if required, this 
+can be connected to the serial interface via the MAX232 chip (R1OUT to /CTS on 
+the 6850 and R1IN to the serial port pin 8). A MAX202 could be used instead of 
+the MAX232, in which case C1-C5 should be 0.1uF.</font></p>
+<p><font face="Arial"><b>Serial port pinout (standard 9-pin): </b><br>
+1 (IN) - Data Carrier Detect (DCD)<font size="2"> </font>
+<font size="2" color="#808080">- not used</font><br>
+2 (IN) - Receive Data (RX)<font color="#808080"> <font size="2">- data from PC 
+to this board</font></font><br>
+3 (OUT) - Transmit Data (TX)<font size="2"> </font>
+<font size="2" color="#808080">- data from this board to the PC</font><br>
+4 (OUT) - Data Terminal Ready (DTR)<font color="#808080" size="2"> - connected 
+to pin 6 to show the board is ready whenever PC is ready (common practice)</font><br>
+5 - Signal Ground<br>
+6 (IN) - Data Set Ready (DSR)<font color="#808080" size="2"> - connected to pin 
+4 - see pin 4</font><br>
+7 (OUT) - Request To Send (RTS)<font size="2"> </font>
+<font size="2" color="#808080">- used to control the data from the PC to this 
+board</font><br>
+8 (IN) - Clear To Send (CTS)<font size="2"> </font>
+<font size="2" color="#808080">- not used, but can be if required (see above)</font><br>
+9 (IN) - Ring Indicator (RI)<font size="2"> </font>
+<font size="2" color="#808080">- not used</font></font></p>
+<p><b><font face="Arial" size="4">Alternative serial (and power) connection</font></b></p>
+<p><font face="Arial">The circuit assumes a connection to a standard RS232 port. 
+However, this could also be connected to a USB to TTL (5V) serial cable instead. 
+If doing this, the MAX232, capacitors C1 to C5 and the serial connector are not 
+needed. This therefore reduces the chip count by 1.</font></p>
+<p><img border="0" src="./Grant&#39;s Z80 computer_files/FTDI_Cable.gif" width="650" height="243"></p>
+<p><font face="Arial">By using a USB to serial cable the board can also be 
+powered from the USB port down the same cable (a powered hub could be used if 
+higher current needed), eliminating the need for a separate power supply for 
+this board. Just connect the +5V out on the cable to the Vcc supply on the 
+board, as shown on the dotted line.<br>
+<font color="#FF0000"><b>IMPORTANT</b> - only connect Vcc to the USB cable if 
+there is no other power supplied to the board.</font><br>
+The 2k7 resistors are present in the diagram because the board may be powered 
+but not plugged in to the USB cable, or the USB cable could be plugged in and 
+active without power to the board. These limit the current to 
+avoid power being drawn through the interface pins. If always powering the board 
+via the cable then no resistors are necessary.</font></p>
+<hr>
+<p><b><font face="Arial" size="5"><a name="CircuitDescription"></a>Circuit description</font></b></p>
+<p><font face="Arial">The crystal oscillator is quite a standard design with the 
+second inverter in it used as a buffer to ensure the crystal operation is not 
+affected by the connected circuitry.</font></p>
+<p><font face="Arial">A Z80 memory read is determined whenever the /MREQ pin 
+goes low when the /RD pin or /WR pin is also low. Two OR gates are used to 
+combine the memory access (/MREQ) and the read/write signals (RD/WR) to produce 
+"memory read" and "memory write" to simplify the interfacing to the ROM and RAM. 
+These are then connected to the appropriate pins on the ROM and RAM devices.</font></p>
+<p><font face="Arial">Address decoding using A13,A14 and A15 will identify the 
+lower 8K (low when A13,A14 and A15 are all low). This is connected to the 
+active-low chip select of the ROM and also to the active-high chip select of the 
+RAM. This way, either the ROM will be active (lower 8K) otherwise the RAM will 
+be active (the remaining 56K). The entire 64K memory space is therefore used.</font></p>
+<p><font face="Arial">The serial interface is accessed using the Z80 I/O 
+addressing mechanism. When accessing I/O devices, the /IORQ signal is taken low 
+along with /RD or /WR. The 6850 does not follow this convention, however, as it is 
+uses a single Enable (E) pin, along with a single R/W pin to identify whether a 
+read or write is to be performed. The R/W pin is taken directly to the /WR pin 
+of the Z80 and the Enable pin is taken to an inverted signal from the /IORQ.</font></p>
+<p><font face="Arial">A problem exists, however, as the /IORQ is also taken low 
+during an interrupt acknowledge. If this was allowed, then the data/control 
+values in the serial interface would be corrupted when the interrupt is 
+acknowledged by the Z80. Interrupt acknowledge is identified by /IORQ and /M1 
+signals going low, so the 6850 is to be disabled if /M1 is low (the Z80 /M1 
+signal connected to the active-high CS0 of the 6850). This ensures that only 
+real I/O triggers the serial interface. The /M1 signal is much wider than the /IORQ 
+and totally masks the /IORQ signal. This ensures that there is no possibility of 
+the ACK signal enabling a read or write. The remaining chip selects on the 
+serial interface are connected to A7 and A6, so any I/O on address 10xxxxxx will 
+select the serial chip. Finally, the register select on the serial interface is 
+connected to A0, so the control register is addressed on port 80H and the data 
+register is addressed on port 81H.</font></p>
+<p><font face="Arial">The remaining chip is a MAX232 (or MAX202) which is a 
+level converter to convert the TTL signals to RS232 values.</font></p>
+<p><font face="Arial">/RTS is passed from the 6850 to the serial interface to 
+signal to the PC when to stop transmitting.<br>
+/CTS is not used and is grounded on the 6850 (see circuit note, above).</font></p>
+<hr>
+<p><font face="Arial"><b><font size="5"><a name="Prototype"></a>Prototype</font></b></font></p>
+<p><font face="Arial">The circuit shown on this page is built here. As you can 
+see, I have attached labels (download <a href="http://searle.hostei.com/grant/labels/index.html">HERE</a>) to the chips to allow the wiring to be very 
+straightforward and error-free. Blue wiring is the address lines, orange is the 
+data lines, red and black are power lines and various colours for the other connections.</font></p>
+<p><img border="0" src="./Grant&#39;s Z80 computer_files/prototype.jpg" width="600" height="410"></p>
+<p><font face="Arial">The serial port is on the left, and the reset button is 
+shown on the right hand side of the Z80 CPU.</font></p>
+<hr>
+<p><font face="Arial"><b><font size="5"><a name="RomFiles"></a>ROM files and assembly listings</font></b></font></p>
+<p><i><font face="Arial" size="2">Update 8th September 2013 - ROM BASIC updates. 
+See the below for details.<br>
+Update 10th September 2013 - Cold/warm start no longer offered as an option for 
+the first-time reset after power-up because cold is the only valid option. 
+Thanks to Dave Curran for this suggestion.</font></i></p>
+<p><font face="Arial">
+This is the same BASIC that I use in the ROM on the CP/M computer. Originally 
+from a Nascom computer, modified to remove all hardware-specific code.</font></p>
+<p><font face="Arial">
+I then removed all code and commands that were specific to the screen, graphics, 
+keyboard and sound.<br>
+I wrote a serial handler to control the text I/O, along with suitable Control-C 
+break handling.<br>
+Unused variable locations were removed.<br>
+The command/function tables were updated as needed for the updated command set, 
+and pointer values adjusted accordingly.</font></p>
+<p><font face="Arial">
+<a href="http://searle.hostei.com/grant/z80/sbc_NascomBasic.zip">Here</a> is the zip containing the following:</font></p>
+<p><font face="Arial">
+<b>Source files<br>
+</b>intmini.asm <font size="2">- the interupt driven mini startup program needed 
+to boot into BASIC</font><br>
+basic.asm <font size="2">- BASIC 4.7b - a conversion of Microsoft BASIC 4.7, as 
+used on the Nascom computers (see below for details)</font></font></p>
+<p><font face="Arial">
+<b>Output files<br>
+</b>INTMINI.HEX<br>
+BASIC.HEX<br>
+ROM.HEX <font size="2">- the complete 8K ROM ready for burning to an EPROM - the 
+unused contents are filled with FF values.<br>
+Within the ROM, the serial handler is first (starting at address 0000H), 
+followed by the BASIC interpreter (starting at 0100H).</font><br>
+<br>
+<b>Assembler files (for Windows/DOS)<br>
+</b>_ASSEMBLE.BAT<font size="2"> - double-click in Windows to run the assembly 
+if needed</font><br>
+TASM.EXE<br>
+TASM80.TAB</font></p>
+<p><font face="Arial">
+<font size="2">Acknowledgements:<br>
+<i>BASIC is Microsoft BASIC 4.7 for the NASCOM, heavily modified by myself to 
+remove references to different monitors, screen handlers and keyboard matrix 
+reading.</i><br>
+</font>
+<i><font size="2">TASM assembler is a partial distribution of the package from Speech Technology 
+Incorporated.</font></i></font></p>
+<p><font face="Arial">(Note: files for the 32K RAM modifications are
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80_32K.html">HERE</a>)</font></p>
+<hr>
+<p><b><font face="Arial" size="5"><a name="RomBasic"></a>ROM BASIC (Microsoft BASIC 4.7) - details of what has been 
+included/excluded</font></b></p>
+<p><font face="Arial" size="2">Update 8th September 2013 - <br>
+1. The HEX and BINARY identifiers have changed to &amp;Hnnnn and &amp;Bnnnn to match 
+Microsoft implementations for other processors. <br>
+2. Width setting changed to 255 default, so no auto CR/LF are added when 
+printing long strings. <br>
+3. HEX$(nn) and BIN$(nn) now have leading zeroes suppressed, as for other 
+numeric output. <br>
+4. CR/LF processing changed slightly internally so that an LF is no longer 
+auto-generated when sending a CR to the terminal.</font></p>
+<p><font face="Arial"><b>INCLUDED TOKENS</b></font></p>
+<p>
+SGN,INT,ABS,USR,FRE,INP,POS,SQR,RND,LOG,EXP,COS,SIN,TAN,ATN,PEEK,DEEK,LEN,STR$,VAL,ASC,CHR$,LEFT$,RIGHT$,MID$</p>
+<p>
+END,FOR,NEXT,DATA,INPUT,DIM,READ,LET,GOTO,RUN,IF,RESTORE,GOSUB,RETURN,REM,STOP,OUT,ON,NULL,WAIT,</p>
+<p>DEF,POKE,DOKE,LINES,CLS,WIDTH,MONITOR,PRINT,CONT,LIST,CLEAR,NEW</p>
+<p>TAB,TO,FN,SPC,THEN,NOT,STEP</p>
+<p>+,-,*,/,^,AND,OR,&gt;,&lt;,=</p>
+<p><font face="Arial">Note: there is also SET,RESET,POINT that call user-defined 
+entry points, as in the ORIGINAL Nascom ROM (ie. not changed). Don't use unless 
+you have defined the calling points for them (see the assembly listing for 
+details).</font></p>
+<p><b><font face="Arial">EXCLUDED TOKENS (don't do anything if called)</font></b></p>
+<p><font face="Arial">SCREEN,CLOAD,CSAVE</font></p>
+<p><b><font face="Arial">NEW (my additional implementations)</font></b></p>
+<p><font face="Arial">HEX$(nn) - convert a SIGNED integer (-32768 to +32767) to 
+a  string containing the hex value<br>
+BIN$(nn) - convert a SIGNED integer (-32768 to +32767) to a  string 
+containing the binary value<br>
+&amp;Hnn - interpret the value after the &amp;H as a HEX value (signed 16 bit)<br>
+&amp;Bnn - interpret the value after the &amp;B as a BINARY value (signed 16 bit)</font></p>
+<p><b><font face="Arial">IMPORTANT NOTES</font></b></p>
+<p><font face="Arial">Integers in this version of BASIC are SIGNED - ie. -32768 
+to +32767. This includes memory locations when peek, poke, deek,doke commands 
+are issued (etc.)<br>
+So, to refer to location "n" above 32767, you must provide the 2's compliment 
+number instead (ie."n-65536") otherwise you will get an "?FC Error" message.</font></p>
+<p><font face="Arial">Functions that return integer values (such as the memory 
+FRE(0) are also <b>signed</b> (!)) so anything bigger than 32767 will appear as 
+a negative value.</font></p>
+<hr>
+<p><font face="Arial"><b><font size="5"><a name="PoweringUp"></a>Powering-up</font></b></font></p>
+<p><font face="Arial">You will need a suitable connection to a PC or other 
+terminal display. You will probably need a null-modem cable to connect this to a 
+PC serial port. Here is my recommended wiring.</font></p>
+<p><img border="0" src="./Grant&#39;s Z80 computer_files/NullModem.jpg" width="500" height="241"></p>
+<p><font face="Arial">Connect to a PC or similar terminal, with the following 
+details (when using a 7.3728MHz crystal):<br>
+115200 baud, 8 
+bits, hardware (RTS/CTS) handshake, no parity, 1 stop bit.</font></p>
+<p><font face="Arial">Power on the board and press the RESET button.</font></p>
+<p><font face="Arial">You will see</font></p>
+<p><b><font face="Courier New">Z80 SBC By Grant Searle</font></b></p>
+<p><i><font face="Arial">If BASIC was already started (ie. reset has been 
+pressed after initial startup) then you will now see the following...</font></i></p>
+<p><i><b><font face="Courier New">Cold or warm start (C or W) ?</font></b></i></p>
+<p><font face="Arial"><i>Press C for normal cold start. (Press W if you want to 
+resume a program previously entered in memory).</i></font></p>
+<p><i><font face="Arial">If this is the first-time reset after power up then the 
+cold/warm option will not be presented, as only cold start is the valid choice.</font></i></p>
+<p><font face="Arial">You will now see the following...</font></p>
+<p><b><font face="Courier New">Memory top?</font></b></p>
+<p><font face="Arial">Press ENTER to use full memory, otherwise enter the value 
+that you require.</font></p>
+<p><font face="Arial">After a few seconds (memory test) the following will appear on the terminal:</font></p>
+<p><b><font face="Courier New">Z80 BASIC Ver 4.7b<br>
+Copyright (C) 1978 by Microsoft<br>
+56958 Bytes free<br>
+Ok</font></b></p>
+<p><font face="Arial">
+<br>
+The machine is now ready to use.</font></p>
+<p><font face="Arial">Note: typing<br>
+</font><font face="Courier New">
+<b>PRINT FRE(0)</b></font><font face="Arial"><br>
+will give (current ROM version, may be slightly different with future 
+releases)...<br>
+</font><font face="Courier New">
+<b>-8578<br>
+Ok</b></font><font face="Arial"><br>
+This shows that the 56K RAM has been recognised correctly.<br>
+Note: The integer values are SIGNED, so this is actually 65536-8578 = 56958<br>
+<br>
+...the rest is up to you.</font></p>
+<p><font face="Arial">A simple program entered and run on the terminal is shown 
+here...</font></p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="600" id="AutoNumber1">
+  <tbody><tr>
+    <td width="100%" bgcolor="#000000">
+    <font face="Courier New" size="2" color="#00FF00">Z80 SBC By Grant Searle<br>
+    <br>
+    Memory top?<br>
+    Z80 BASIC Ver 4.7b<br>
+    Copyright (C) 1978 by Microsoft<br>
+    56958 Bytes free<br>
+    Ok<br>
+    10 FOR A=0 TO 6.2 STEP 0.2<br>
+    20 PRINT TAB(40+SIN(A)*20);"*"<br>
+    30 NEXT A<br>
+    RUN<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    *<br>
+    Ok</font></td>
+  </tr>
+</tbody></table>
+<p>&nbsp;</p>
+<hr>
+
+<p><b><font face="Arial" size="5"><a name="LoadAndSave"></a>Loading and saving</font></b></p>
+
+<p><font face="Arial"><b>Save</b><br>
+Type LIST but don't press enter.<br>
+In your terminal window on the PC, or whatever you are using to operate this 
+board, enable the capture to a text file.<br>
+Press ENTER.<br>
+The listing will then be spooled to the text file on your PC.<br>
+Once the listing is complete, end the capture. The contents of the program will 
+then be on the PC for later use.</font></p>
+
+<p><font face="Arial"><b>Load<br>
+</b>Most terminal programs have a method to pass a text file to the destination.<br>
+Ensure the board is ready to receive characters and then transfer the text 
+file from the PC to the board using the terminal.<br>
+You can transfer the text at full speed - the interrupt-driven code will capture 
+the data with no data loss. The handler will also control the hardware 
+handshaking (RTS) to ensure the sender waits until the BASIC interpreter is 
+ready for it.</font></p>
+
+<hr>
+
+<p><b><font face="Arial" size="5"><a name="Interfacing"></a>Interfacing</font></b></p>
+<p><font face="Arial">The Z80 family includes several ICs suitable for 
+interfacing to the Z80 bus to allow parallel or serial data I/O. These don't 
+have to be used, however. For outputs, a 74HCT374 latch is suitable (provides 8 
+output bits) and a 74HCT245 can be used for an 8-bit input port. The circuit 
+below shows how these can be used.</font></p>
+<p><font face="Arial"><b>It is important to use 74HCT devices</b> because:<br>
+1. They have extremely small input current requirements so many can be attached 
+to the Z80 buses without any noticeable loading - no buffer ICs are necessary. 
+There should be no problem in attaching a large number of devices providing the 
+bus lengths are kept as short as possible. Quite a reasonable length can be 
+achieved with no instability, though (see my picture below)<br>
+2. The outputs are virtually rail-to-rail (ie. 0V or 5V) unlike the 74LS 
+devices.<br>
+3. The outputs have strong high and low currents so can drive (for example) LEDs 
+connected to either ground or Vcc easily (must use current limiting resistors, 
+as is normal for LEDs).</font></p>
+<p><b><font face="Arial">An example</font></b></p>
+<p><font face="Arial">Here is an example of a very simple way of having a very 
+large number of input and output connections (32 inputs and 32 outputs) added to 
+the circuit described above. This should be plenty for virtually ALL interfacing 
+requirements. If not so many bits are required then only use the number of 
+74HCT245 and 74HCT374 chips that are required.</font></p>
+<p><font face="Arial">A 74HCT138 is used to provide the logic needed to activate 
+4 input ports and 4 output ports. No other decoding is necessary.<br>
+The /WR line is connected to the high address selection on the '138 so that when 
+/WR is low, Y0 to Y3 are selected (the output port select pins) and when /WR is 
+high (ie. /RD would be low) Y4 to Y7 would be selected (the input port select 
+pins).<br>
+A0 and A1 is used to select which of the input or output ports are to be 
+selected.<br>
+/M1 is connected to an active high pin to prevent "ACK" signals triggering I/O, 
+as described for the 6850 earlier in this page.<br>
+A7 is connected to an active low input so any I/O with address 0xxxxxxxx will 
+address this circuitry.<br>
+/IORQ is connected to an active low input to allow Z80 I/O to activate the 
+ports.<br>
+<br>
+Therefore...<br>
+I/O address 0xxxxxx00 = input/output port 0<br>
+I/O address 0xxxxxx01 = input/output port 1<br>
+I/O address 0xxxxxx10 = input/output port 2<br>
+I/O address 0xxxxxx11 = input/output port 3</font></p>
+<p><font face="Arial">This example still uses <b>minimal</b> decoding, so takes up a 
+large number of spaces in the I/O address range. If needed, further address 
+decoding can be added. However, as this provides a large number of input and 
+outputs, it may not be necessary to free up any more I/O space as this may be 
+sufficient for all the interfacing that is required.</font></p>
+<p><font face="Arial">Here is the circuit:</font></p>
+<p><img border="0" src="./Grant&#39;s Z80 computer_files/io_schematic.gif" width="1200" height="471"></p>
+<p><font face="Arial">Here is my example implementation. I have 32 input 
+switches (two pushbuttons and 30 DIP switches) and 32 LEDs.</font></p>
+<p><img border="0" src="./Grant&#39;s Z80 computer_files/io_layout.jpg" width="850" height="242"><br>
+<font face="Arial">Orange wires are the data bus, green wires are the chip 
+select connections.</font></p>
+<p><font face="Arial">The three diodes top-right are the brightness adjustment - 
+the more in series with the cathodes, the lower voltage drop across each LED 
+resistor and therefore lower current/brightness. The resistors in series with 
+the LEDs are 470R, so max LED current is a bit under 7mA with no diodes in 
+series with the ground connection (this is the limit for the '374 chips if all LEDs are lit), or about 3mA with the three diodes in series 
+to ground. 7mA is more than enough current for the LEDs, and 3mA is fine for 
+most lighting conditions.<br>
+The input ports have resistor packs taking each input to ground (0) when not 
+connected. The switches then allow each input to connect to Vcc (1).</font></p>
+<p><font face="Arial">These ports are accessed in BASIC using<b> x=INP(n)</b> to 
+read the input port, or <b>OUT n,x</b> to write to the output port.</font></p>
+<hr>
+
+<p><b><font face="Arial" size="5">Using a keyboard and monitor instead of the PC 
+interface</font></b></p>
+<p><font face="Arial">This board, as for my other boards, can use my monitor and 
+keyboard interface <a href="http://searle.hostei.com/grant/MonitorKeyboard/index.html">here</a></font></p>
+<p><a href="http://searle.hostei.com/grant/MonitorKeyboard/index.html">
+<img border="0" src="./Grant&#39;s Z80 computer_files/ATMega328Video_S.jpg" width="450" height="215"></a></p>
+<hr>
+
+<p><b><font face="Arial" size="5">My other pages</font></b></p>
+
+<p><font face="Arial">This computer with 32K RAM modifications are
+<a href="http://searle.hostei.com/grant/z80/SimpleZ80_32K.html">HERE</a></font></p>
+
+<p><font face="Arial"><a href="http://searle.hostei.com/grant/index.html">CLICK HERE TO GO TO MY MAIN PAGE 
+FOR MY OTHER PROJECTS</a></font></p>
+
+<hr>
+
+<p><font face="Arial"><i>I hope this page has been useful.</i> </font> </p>
+
+<p><font face="Arial"><i>Grant.</i> </font> </p>
+
+<p><font face="Arial">To see my other pages or to see my contact address, please 
+click
+<a href="http://searle.hostei.com/grant/index.html">here</a>. Please note that 
+this address may change to avoid spam.</font></p>
+
+<p><font face="Arial"><font color="#0000FF" size="2"><i>Note: All information shown
+here is supplied "as is" with no warranty whatsoever, however, please 
+let me know if there are any errors.
+All copyrights recognised.</i></font> </font> </p>
+
+<div style="text-align: right;position: fixed;z-index:9999999;bottom: 0;width: auto;right: 1%;cursor: pointer;line-height: 0;display:block !important;"><a title="Hosted on free web hosting 000webhost.com. Host your own website for FREE." target="_blank" href="https://www.000webhost.com/?utm_source=000webhostapp&amp;utm_campaign=000_logo&amp;utm_medium=website&amp;utm_content=footer_img"><img src="./Grant&#39;s Z80 computer_files/footer-powered-by-000webhost-white2.webp" alt="www.000webhost.com"></a></div><script>function getCookie(e){for(var t=e+"=",n=decodeURIComponent(document.cookie).split(";"),o=0;o<n.length;o++){for(var i=n[o];" "==i.charAt(0);)i=i.substring(1);if(0==i.indexOf(t))return i.substring(t.length,i.length)}return""}getCookie("hostinger")&&(document.cookie="hostinger=;expires=Thu, 01 Jan 1970 00:00:01 GMT;",location.reload());var notification=document.getElementsByClassName("notice notice-success is-dismissible"),hostingerLogo=document.getElementsByClassName("hlogo"),mainContent=document.getElementsByClassName("notice_content")[0],newList=["Powerful and Easy-To-Use Control Panel.","1-Click Auto Installer and 24/7 Live Support.","Free Domain, Email and SSL Bundle.","5x faster WordPress performance","Weekly Backups and Fast Response Time."];if(0<notification.length&&null!=mainContent){var googleFont=document.createElement("link");googleFontHref=document.createAttribute("href"),googleFontRel=document.createAttribute("rel"),googleFontHref.value="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600",googleFontRel.value="stylesheet",googleFont.setAttributeNode(googleFontHref),googleFont.setAttributeNode(googleFontRel);var css="@media only screen and (max-width: 768px) {.web-hosting-90-off-image-wrapper {position: absolute;} .notice_content {justify-content: center;} .web-hosting-90-off-image {opacity: 0.3;}} @media only screen and (min-width: 769px) {.notice_content {justify-content: space-between;} .web-hosting-90-off-image-wrapper {padding: 0 5%}} .content-wrapper {z-index: 5} .notice_content {display: flex; align-items: center;} * {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;} .upgrade_button_red_sale{border: 0; border-radius: 3px; background-color: #ff123a !important; padding: 15px 55px !important; margin-left: 30px; font-family: 'Open Sans', sans-serif; font-size: 16px; font-weight: 600; color: #ffffff;} .upgrade_button_red_sale:hover{color: #ffffff !important; background: #d10303 !important;}",style=document.createElement("style"),sheet=window.document.styleSheets[0];style.styleSheet?style.styleSheet.cssText=css:style.appendChild(document.createTextNode(css)),document.getElementsByTagName("head")[0].appendChild(style),document.getElementsByTagName("head")[0].appendChild(googleFont);var button=document.getElementsByClassName("upgrade_button_red")[0],link=button.parentElement;link.setAttribute("href","https://www.hostinger.com/hosting-starter-offer?utm_source=000webhost&utm_medium=panel&utm_campaign=000-wp"),link.innerHTML='<button class="upgrade_button_red_sale">TRANSFER NOW</button>',(notification=notification[0]).setAttribute("style","padding-bottom: 10px; padding-top: 5px; background-image: url(https://cdn.000webhost.com/000webhost/promotions/springsale/mountains-neon-background.jpg); background-color: #000000; background-size: cover; background-repeat: no-repeat; color: #ffffff; border-color: #ff123a; border-width: 8px;"),notification.className="notice notice-error is-dismissible",(hostingerLogo=hostingerLogo[0]).setAttribute("src","https://cdn.000webhost.com/000webhost/promotions/springsale/logo-hostinger-white.svg"),hostingerLogo.setAttribute("style","float: none !important; height: auto; max-width: 100%; margin: 40px 20px 10px 30px;");var h1Tag=notification.getElementsByTagName("H1")[0];h1Tag.remove();var paragraph=notification.getElementsByTagName("p")[0];paragraph.innerHTML="Migrate your WordPress to Hostinger and enjoy the best features on the market! The time is now!",paragraph.setAttribute("style",'max-width: 600px; margin-left: 30px; font-family: "Open Sans", sans-serif; font-size: 16px; font-weight: 600;');var list=notification.getElementsByTagName("UL")[0];list.setAttribute("style","max-width: 675px;");for(var listElements=list.getElementsByTagName("LI"),i=0;i<newList.length;i++)listElements[i].setAttribute("style","color:#ffffff; list-style-type: disc; margin-left: 30px; font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.5;"),listElements[i].innerHTML=newList[i];listElements[listElements.length-1].remove();var org_html=mainContent.innerHTML,new_html='<div class="content-wrapper">'+mainContent.innerHTML+'</div><div class="web-hosting-90-off-image-wrapper"><img class="web-hosting-90-off-image" src="https://cdn.000webhost.com/000webhost/promotions/springsale/web-hosting-90-off.png"></div>';mainContent.innerHTML=new_html;var saleImage=mainContent.getElementsByClassName("web-hosting-90-off-image")[0];!function(){var t=document.querySelectorAll("body.wp-admin")[0];function e(){var e=document.createElement("iframe");e.id="hgr-promo-widget",e.setAttribute("src","https://www.hostinger.com/widgets/bottom-banner-sale/000_wp_admin"),e.setAttribute("allowfullscreen",!0),e.setAttribute("frameborder",0),e.style.cssText="z-index: 2147483000 !important;position: fixed !important;bottom: 0; width: 100%;!important; left: 0!important;",e.style.opacity=0,e.onload=function(){iFrameResize({},"#hgr-promo-widget"),e.style.opacity=1},t.insertAdjacentElement("afterend",e)}if(window.iFrameResize)e();else{var n=document.createElement("script");n.type="text/javascript",t.insertAdjacentElement("afterend",n),n.onload=e,n.src="https://unpkg.com/iframe-resizer@3.6.3/js/iframeResizer.min.js"}}()}</script>
+
+<iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Grant&#39;s Z80 computer_files/widget_iframe.2e9f365dae390394eb8d923cba8c5b11.html" title="Twitter settings iframe" style="display: none;"></iframe></body></html>
