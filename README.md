@@ -1,2 +1,2 @@
-# tec-Grant-Dearl
+# tec-Grant-Searl
 Grants Z80 computer
